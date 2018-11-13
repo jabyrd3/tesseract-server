@@ -15,6 +15,7 @@ app.post('/', upload.single('img'), (req, res) => {
     } else {
       console.log(text);
     }
+    console.log('text:', text);
     res.send(text);
   });
 });
