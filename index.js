@@ -19,7 +19,8 @@ var upload = multer({storage});
 
 app.post('/', upload.single('img'), (req, res) => {
   tesseract.process(`/scripts/uploads/${req.file.filename}`, {
-    psm: 1
+    psm: 1,
+    l: 'eng'
   }, function(err, text){
     if(err) {
       console.error(err);
