@@ -2,6 +2,7 @@ const tesseract = require('node-tesseract');
 const express = require('express');
 const app = express();
 const http = require('http');
+const fs = require('fs');
 var multer  = require('multer')
 
 const server = http.createServer(app);
@@ -23,10 +24,13 @@ app.post('/', upload.single('img'), (req, res) => {
     l: 'eng'
   }, function(err, text){
     if(err) {
-      console.error(err);
+      console.error('err', err);
     } else {
-      console.log(text);
+      console.log('parsed text');
     }
+    fs.unlink(`/scripts/uploads/${req.file.filename}`, ()=>{
+      console.log('cleaned up file');
+    });
     res.send(text);
   });
 });
