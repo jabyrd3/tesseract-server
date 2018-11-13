@@ -3,9 +3,19 @@ const express = require('express');
 const app = express();
 const http = require('http');
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' });
 
 const server = http.createServer(app);
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.jpg') //Appending .jpg
+  }
+});
+
+var upload = multer({storage});
 
 app.post('/', upload.single('img'), (req, res) => {
   console.log(req.file);
