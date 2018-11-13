@@ -6,7 +6,9 @@ const fs = require('fs');
 var multer  = require('multer')
 
 const server = http.createServer(app);
-
+const logger = (text) => {
+  console.log(`${new Date()}: ${text}`)
+}
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -24,9 +26,9 @@ app.post('/', upload.single('img'), (req, res) => {
     l: 'eng'
   }, function(err, text){
     if(err) {
-      console.error('err', err);
+      logger(`err:  ${err}`);
     } else {
-      console.log('parsed text');
+      logger('parsed text');
     }
     fs.unlink(`/scripts/uploads/${req.file.filename}`, ()=>{
       console.log('cleaned up file');
