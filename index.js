@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 });
 
 var upload = multer({storage});
-app.get('/up', (req, res)=>res.send('yup'));
+app.get('/up', (req, res) => res.send('yup'));
 app.post('/', upload.single('img'), (req, res) => {
   tesseract.process(`/scripts/uploads/${req.file.filename}`, {
     psm: 1,
