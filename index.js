@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const fs = require('fs');
+const register = require('consul-register')(require('./config.js'));
+register();
 var multer  = require('multer')
 
 const server = http.createServer(app);
